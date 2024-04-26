@@ -1,9 +1,11 @@
 import model.CurrencyRequest;
 
+import java.io.IOException;
 import java.util.Scanner;
 
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String apresentacao = """
         ******************************************************
         Bem-vindo(a) ao conversor de moedas.
@@ -25,7 +27,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Informe a moeda que deseja inciar a conversao: ");
-        String mainCurrenty = scanner.nextLine().toUpperCase();
+        String mainCurrency = scanner.nextLine().toUpperCase();
 
         System.out.println("Informe a moeda que deseja receber a conversao: ");
         String toConvertCurrency = scanner.nextLine().toUpperCase();
@@ -33,7 +35,7 @@ public class Main {
         System.out.println("Informe o valor a ser convertido: ");
         double amount = scanner.nextDouble();
 
-        //CurrencyRequest request = new CurrencyRequest();
-
+        CurrencyRequest request = new CurrencyRequest();
+        request.getCurrency(mainCurrency, toConvertCurrency, amount);
     }
 }
