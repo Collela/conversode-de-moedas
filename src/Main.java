@@ -16,9 +16,6 @@ public class Main {
         BLR - Real Brasileiro
         ARS - Argentina Peso
         Etc...
-        
-        Digite 'moedas' a qualquer momento caso queira ver a lista de moedas!
-        
         ******************************************************
         """;
 

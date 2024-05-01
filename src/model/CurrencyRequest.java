@@ -1,7 +1,5 @@
 package model;
 
-import netscape.javascript.JSObject;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -15,6 +13,7 @@ import com.google.gson.JsonObject;
 import java.util.Scanner;
 
 public class CurrencyRequest {
+
     String key = "";
 
     public CurrencyRequest(){
@@ -22,7 +21,6 @@ public class CurrencyRequest {
         try{
             Scanner sc = new Scanner(file);
             key = sc.next();
-            System.out.println("Arquivo encontrado: " + key);
 
         }catch (FileNotFoundException e){
             System.out.println("Arquivo não encontrado: " + e.getMessage());
@@ -40,14 +38,25 @@ public class CurrencyRequest {
             JsonObject jsonData = new Gson().fromJson(response.body(), JsonObject.class);
             JsonObject dataObj = jsonData.getAsJsonObject("conversion_rates");
 
-            System.out.println("Deu certo: " + dataObj );
+            if (dataObj != null && dataObj.has(toConvertCurrency)){
 
-            if (mainCurrency != null && dataObj != null){
-                System.out.println("Entrou no if");
+                double rate = dataObj.get(toConvertCurrency).getAsDouble();
+                System.out.println("Cotacao de " +mainCurrency + " para " + toConvertCurrency + " e de " + rate);
+
+                if ((rate != 0) && (amount != 0)){
+                    double resultConversion = amount * rate;
+                    System.out.println("O Valor da conversao para " + toConvertCurrency + " e de " + resultConversion);
+                }
+                else {
+                    System.out.println("Informe o valor a ser convertido.");
+                }
+
+            }else{
+                System.out.println("Erro ao conectar a API");
             }
 
         }catch (Exception e){
-            System.out.println("Algo nao esta certo: " + e);
+            System.out.println("Erro no sitema: " + e);
         }
 
     }
